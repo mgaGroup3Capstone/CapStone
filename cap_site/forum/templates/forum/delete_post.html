@@ -1,0 +1,34 @@
+{% extends 'forum/main.html' %}
+
+{% block title %}Delete Post{% endblock %}
+
+{% block content %}
+<div class="container">
+	{% if user.is_authenticated %}
+		{% if post.author.id == user.id %}
+			<h1>Delete Post</h1>
+			<br/><br/>
+			<h2>Delete: {{ post.title }}</h2>
+			<br/>
+
+			<div class="form-group">
+				<form method="POST">
+					{% csrf_token %}
+					<strong>Are you sure you want to permanently delete this post?</strong>
+					<br/><br/>
+					<button class="btn btn-danger">Delete Post!</button>
+				</form>
+			</div>
+		{% else %}
+
+			Page not found
+			
+		{% endif %}
+
+	{% else %}
+
+		Please log in 
+
+	{% endif %}
+</div>
+{% endblock %}

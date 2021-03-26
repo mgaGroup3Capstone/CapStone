@@ -1,0 +1,24 @@
+{% extends 'forum/main.html' %}
+
+{% block title %}Forum{% endblock %}
+
+{% block content %}
+<div class="container">    
+	<h1>Post</h1>
+
+	<ul>
+	{% for post in object_list %}
+		<li><a href= "{% url 'post-detail' post.pk %}">{{post.title}} </a>- {{post.author}} - 
+			{{ post.date_created }} - <br/>
+		{{post.body| slice:":200" | safe}}</li>
+
+	{% endfor %}
+	</ul>
+	{% if user.is_authenticated %}
+		<a class="btn btn-secondary" aria-current="page" href="{% url 'create-post' %}">create_post</a>
+	{% else %}
+		<h2>Log in to create a post.</h2>
+	{% endif %}
+
+</div>
+{% endblock %}
